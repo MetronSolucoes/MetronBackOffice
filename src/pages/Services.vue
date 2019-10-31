@@ -9,11 +9,11 @@
             >
                 <md-card>
                     <md-card-header data-background-color="green">
-                        <h4 class="title">Simple Table</h4>
-                        <p class="category">Here is a subtitle for this table</p>
+                        <h4 class="title">Serviços</h4>
+                        <p class="category">Serviços oferecidos</p>
                     </md-card-header>
                     <md-card-content>
-                        <simple-table table-header-color="green"></simple-table>
+                        <simple-table-service table-header-color="green"></simple-table-service>
                     </md-card-content>
                 </md-card>
             </div>
@@ -23,12 +23,11 @@
 </template>
 
 <script>
-	import {SimpleTable, OrderedTable} from "@/components";
+	import {SimpleTableService} from "@/components";
 
 	export default {
 		components: {
-			OrderedTable,
-			SimpleTable
+			SimpleTableService
 		}
 	};
 </script>

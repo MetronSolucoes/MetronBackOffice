@@ -5,6 +5,7 @@ export function getServices() {
 		.then(function (response) {
 			// handle success
 			console.log(response);
+			return response.data;
 		})
 		.catch(function (error) {
 			// handle error
@@ -20,6 +21,7 @@ export function getServiceById(id) {
 		.then(function (response) {
 			// handle success
 			console.log(response);
+			return response;
 		})
 		.catch(function (error) {
 			// handle error
@@ -30,11 +32,12 @@ export function getServiceById(id) {
 		});
 }
 
-export function createService() {
-	return axios.post('/services')
+export function createService(data) {
+	return axios.post('/services', data)
 		.then(function (response) {
 			// handle success
 			console.log(response);
+			return response;
 		})
 		.catch(function (error) {
 			// handle error
@@ -45,11 +48,12 @@ export function createService() {
 		});
 }
 
-export function updateService(id) {
-	return axios.put('/services/' + id)
+export function updateService(data) {
+	return axios.put('/services/' + data.id, data)
 		.then(function (response) {
 			// handle success
 			console.log(response);
+			return response;
 		})
 		.catch(function (error) {
 			// handle error
@@ -65,6 +69,7 @@ export function deleteService(id) {
 		.then(function (response) {
 			// handle success
 			console.log(response);
+			return response;
 		})
 		.catch(function (error) {
 			// handle error

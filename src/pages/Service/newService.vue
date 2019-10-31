@@ -18,11 +18,17 @@
                         <div class="md-layout-item md-small-size-100 md-size-100">
                             <md-field>
                                 <label>Descrição</label>
-                                <md-textarea v-model="service.description" type="text"></md-textarea>
+                                <md-input v-model="service.description" type="text"></md-input>
+                            </md-field>
+                        </div>
+                        <div class="md-layout-item md-small-size-100 md-size-100">
+                            <md-field>
+                                <label>Duração (min)</label>
+                                <md-input v-model="service.duration" type="text"></md-input>
                             </md-field>
                         </div>
                         <div class="md-layout-item md-size-100 text-right">
-                            <md-button class="md-raised md-success">Salvar</md-button>
+                            <md-button v-on:click="saveService(service)" class="md-raised md-success">Salvar</md-button>
                         </div>
                     </div>
                 </md-card-content>
@@ -31,19 +37,62 @@
     </div>
 </template>
 <script>
+	import {
+		createService,
+		updateService,
+		getServiceById
+	} from '@/controllers/services';
+
 	export default {
 		name: "edit-service-form",
 		props: {
-			dataBackgroundColor: "#3A7BF2"
 		},
 		data() {
 			return {
+				disabled: null,
 				service: {
 					id: null,
 					name: null,
-					description: null
+					description: null,
+					duration: null
                 }
 			};
+		},
+		methods: {
+			saveService(data) {
+				if (data.id) {
+					updateService(data)
+						.then((res) => {
+							if (res && res.status === 200) {
+								this.moveToService();
+							}
+						})
+				} else {
+					console.log(data);
+					createService(data)
+						.then((res) => {
+							if (res && res.status === 201) {
+								this.moveToService();
+							}
+						});
+				}
+			},
+			moveToService() {
+				this.$router.push({name: 'Serviços'});
+			}
+
+		},
+		mounted() {
+			if (this.$route.params && this.$route.params.id) {
+				getServiceById(this.$route.params.id)
+					.then((res) => {
+						if (res && res.status === 200) {
+							this.service = res.data;
+						} else {
+							this.moveToService();
+						}
+					})
+			}
 		}
 	};
 </script>

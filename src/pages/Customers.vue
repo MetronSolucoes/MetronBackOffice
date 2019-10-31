@@ -23,11 +23,10 @@
 </template>
 
 <script>
-	import {SimpleTableCustomer, OrderedTable} from "@/components";
+	import {SimpleTableCustomer} from "@/components";
 
 	export default {
 		components: {
-			OrderedTable,
 			SimpleTableCustomer
 		}
 	};

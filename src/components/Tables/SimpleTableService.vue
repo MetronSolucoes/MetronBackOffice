@@ -1,19 +1,28 @@
 <template>
     <div>
-        <md-table v-model="users" :table-header-color="tableHeaderColor">
-            <md-table-row slot="md-table-row" slot-scope="{ item }">
-                <md-table-cell md-label="Nome">{{ item.customer.name }}</md-table-cell>
-                <md-table-cell md-label="Contato">{{ item.customer.phone }}</md-table-cell>
-                <md-table-cell md-label="Horário Inicial">{{item.dateIni | toDatetime}}</md-table-cell>
-                <md-table-cell md-label="Horário Final">{{item.dateEnd | toDatetime}}</md-table-cell>
-                <md-table-cell md-label="Status">{{ item.status | capitalize }}</md-table-cell>
+        <md-table v-model="services" :table-header-color="tableHeaderColor">
+            <md-table-row v-on:click="editService(item.id)" slot="md-table-row" slot-scope="{ item }">
+                <md-table-cell md-label="Nome">{{ item.name }}</md-table-cell>
+                <md-table-cell md-label="Descrição">{{ item.description }}</md-table-cell>
+                <md-table-cell md-label="Duração (min)">{{ item.duration }}</md-table-cell>
+                <md-table-cell md-label="Remover"><md-button v-on:click="removeUser(item.id, $event)" class="md-icon-button md-accent"><md-icon>close</md-icon></md-button></md-table-cell>
             </md-table-row>
         </md-table>
     </div>
 </template>
 
+<style>
+    .md-button.md-theme-default.md-accent {
+        background: #ff5252 !important;
+    }
+</style>
+
 <script>
 	import moment from 'moment';
+	import {
+		getServices,
+		deleteService
+	} from '@/controllers/services';
 
 	export default {
 		name: "simple-table-service",
@@ -33,66 +42,48 @@
 				return value.charAt(0).toUpperCase() + value.slice(1)
 			}
 		},
+		methods: {
+			editService(id) {
+				this.$router.push({ name: 'Atualizar Serviço', params: { id: id }})
+			},
+			removeUser(id, event) {
+				event.stopPropagation();
+
+				this.$swal({
+					title: 'Deletar serviço?',
+					text: "Esta operação é irreverssível",
+					type: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Sim, deletar!',
+					cancelButtonText: 'Cancelar'
+				}).then((result) => {
+					if (result.value) {
+						deleteService(id)
+							.then((res) => {
+								if (res && res.status === 204) {
+									this.loadServices();
+								}
+							})
+					}
+				})
+			},
+			loadServices() {
+				getServices()
+					.then((data) => {
+						this.services = data;
+					});
+			}
+		},
 		data() {
 			return {
 				selected: [],
-				users: [
-					{
-						dateIni: '1571056200000',
-						dateEnd: '1571058000000',
-						status: 'marcado',
-						customer: {
-							name: 'Dakota Rice',
-							phone: '99999-9999'
-						}
-					},
-					{
-						dateIni: '1571059800000',
-						dateEnd: '1571061600000',
-						status: 'marcado',
-						customer: {
-							name: 'Minerva Hooper',
-							phone: '99999-9999'
-						}
-					},
-					{
-						dateIni: '1571063400000',
-						dateEnd: '1571065200000',
-						status: 'marcado',
-						customer: {
-							name: 'Sage Rodriguez',
-							phone: '99999-9999'
-						}
-					},
-					{
-						dateIni: '1571058000000',
-						dateEnd: '1571058000000',
-						status: 'marcado',
-						customer: {
-							name: 'Philip Chaney',
-							phone: '99999-9999'
-						}
-					},
-					{
-						dateIni: '1571068800000',
-						dateEnd: '1571070600000',
-						status: 'marcado',
-						customer: {
-							name: 'Doris Greene',
-							phone: '99999-9999'
-						}
-					},
-					{
-						dateIni: '1571074200000',
-						dateEnd: '1571076000000',
-						status: 'marcado',
-						customer: {
-							name: 'Mason Porter',
-							phone: '99999-9999'
-						}
-					}
-				]
+				services: [],
 			};
+		},
+		mounted () {
+			this.loadServices();
 		}
 	};
 </script>

@@ -29,6 +29,11 @@ import moment from 'moment';
 import axios from 'axios';
 
 
+//SweetAlert2
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+
 // MaterialDashboard plugin
 import MaterialDashboard from "./material-dashboard";
 
@@ -48,6 +53,8 @@ Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(Notifications);
 Vue.prototype.$moment = moment;
+Vue.use(VueSweetalert2);
+
 
 axios.defaults.baseURL = 'https://metron-v1.herokuapp.com/api/v1';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';

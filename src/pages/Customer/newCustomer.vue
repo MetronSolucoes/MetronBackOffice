@@ -52,12 +52,12 @@
 	import {
 		createCustomer,
 		updateCustomer,
+		getCustomerById
 	} from '@/controllers/customers';
 
 	export default {
 		name: "edit-customer-form",
 		props: {
-			dataBackgroundColor: "#3A7BF2",
 		},
 		data() {
 			return {
@@ -69,27 +69,47 @@
 					phone: null,
 					email: null,
 					last_name: null
-                }
+				}
 
 			};
 		},
-        methods: {
+		methods: {
 			saveUser(user) {
 
 				if (user.id) {
-					console.log('update');
-                } else {
-					console.log('create');
-					createCustomer(user)
-                        .then((res) => {
-						    if (res && res.status === 201) {
-								this.$router.push({ name: 'Clientes' })
+					updateCustomer(user)
+						.then((res) => {
+							if (res && res.status === 200) {
+								this.moveToCustomer();
 							}
-                        });
-                    console.log(user);
-                }
-            }
-        }
+						})
+				} else {
+					console.log(user);
+					createCustomer(user)
+						.then((res) => {
+							if (res && res.status === 201) {
+								this.moveToCustomer();
+							}
+						});
+				}
+			},
+			moveToCustomer() {
+				this.$router.push({name: 'Clientes'})
+			}
+
+		},
+		mounted() {
+			if (this.$route.params && this.$route.params.id) {
+				getCustomerById(this.$route.params.id)
+					.then((res) => {
+						if (res && res.status === 200) {
+							this.customer = res.data;
+						} else {
+							this.$router.push({name: 'Clientes'})
+						}
+					})
+			}
+		}
 	};
 </script>
 <style></style>

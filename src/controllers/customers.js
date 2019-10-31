@@ -4,7 +4,6 @@ export function getCustomers() {
 	return axios.get('/customers')
 		.then(function (response) {
 			// handle success
-			console.log(response);
 			if (response) {
 				return response.data;
 			}
@@ -22,7 +21,7 @@ export function getCustomerById(id) {
 	return axios.get('/customers/' + id)
 		.then(function (response) {
 			// handle success
-			console.log(response);
+			return response;
 		})
 		.catch(function (error) {
 			// handle error
@@ -37,7 +36,6 @@ export function createCustomer(data) {
 	return axios.post('/customers', data)
 		.then(function (response) {
 			// handle success
-			console.log(response);
 			return response;
 		})
 		.catch(function (error) {
@@ -49,11 +47,11 @@ export function createCustomer(data) {
 		});
 }
 
-export function updateCustomer(id, data) {
-	return axios.put('/customers/' + id, data)
+export function updateCustomer(user) {
+	return axios.put('/customers/' + user.id, user)
 		.then(function (response) {
 			// handle success
-			console.log(response);
+			return response;
 		})
 		.catch(function (error) {
 			// handle error
@@ -68,7 +66,7 @@ export function deleteCustomer(id) {
 	return axios.delete('/customers/' + id)
 		.then(function (response) {
 			// handle success
-			console.log(response);
+			return response;
 		})
 		.catch(function (error) {
 			// handle error

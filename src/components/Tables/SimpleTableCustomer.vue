@@ -6,16 +6,23 @@
                 <md-table-cell md-label="Contato">{{ item.phone }}</md-table-cell>
                 <md-table-cell md-label="Email">{{ item.email }}</md-table-cell>
                 <md-table-cell md-label="CPF">{{ item.cpf }}</md-table-cell>
-                <md-table-cell md-label="Remover"></md-table-cell>
+                <md-table-cell md-label="Remover"><md-button v-on:click="removeUser(item.id, $event)" class="md-icon-button md-accent"><md-icon>close</md-icon></md-button></md-table-cell>
             </md-table-row>
         </md-table>
     </div>
 </template>
 
+<style>
+    .md-button.md-theme-default.md-accent {
+        background: #ff5252 !important;
+    }
+</style>
+
 <script>
 	import moment from 'moment';
 	import {
-		getCustomers
+		getCustomers,
+		deleteCustomer
     } from '@/controllers/customers';
 
 	export default {
@@ -38,7 +45,36 @@
 		},
         methods: {
 			editUser(id) {
-				this.$route.push({ name: 'Atualizar Cliente', params: { id: id }})
+				this.$router.push({ name: 'Atualizar Cliente', params: { id: id }})
+            },
+			removeUser(id, event) {
+				event.stopPropagation();
+
+				this.$swal({
+					title: 'Deletar usuário?',
+					text: "Esta operação é irreverssível",
+					type: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Sim, deletar!',
+					cancelButtonText: 'Cancelar'
+				}).then((result) => {
+					if (result.value) {
+						deleteCustomer(id)
+							.then((res) => {
+								if (res && res.status === 204) {
+									this.loadCustomers();
+								}
+							})
+					}
+				})
+            },
+            loadCustomers() {
+				getCustomers()
+					.then((data) => {
+						this.customers = data;
+					});
             }
         },
 		data() {
@@ -48,10 +84,7 @@
 			};
 		},
 		mounted () {
-			getCustomers()
-                .then((data) => {
-                	this.customers = data;
-                });
+			this.loadCustomers();
 		}
 	};
 </script>
