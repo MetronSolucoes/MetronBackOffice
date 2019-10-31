@@ -24,7 +24,7 @@
                         <div class="md-layout-item md-small-size-100 md-size-100">
                             <md-field>
                                 <label>Duração (min)</label>
-                                <md-input v-model="service.duration" type="text"></md-input>
+                                <md-input v-model="service.duration" min="1" step="1" type="number"></md-input>
                             </md-field>
                         </div>
                         <div class="md-layout-item md-size-100 text-right">

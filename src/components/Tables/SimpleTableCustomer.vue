@@ -1,12 +1,19 @@
 <template>
     <div>
         <md-table v-model="customers" :table-header-color="tableHeaderColor">
-            <md-table-row v-on:click="editUser(item.id)" slot="md-table-row" slot-scope="{ item }">
+            <md-table-row slot="md-table-row" slot-scope="{ item }">
                 <md-table-cell md-label="Nome">{{ item.name + ' ' + item.last_name}}</md-table-cell>
                 <md-table-cell md-label="Contato">{{ item.phone }}</md-table-cell>
                 <md-table-cell md-label="Email">{{ item.email }}</md-table-cell>
                 <md-table-cell md-label="CPF">{{ item.cpf }}</md-table-cell>
-                <md-table-cell md-label="Remover"><md-button v-on:click="removeUser(item.id, $event)" class="md-icon-button md-accent"><md-icon>close</md-icon></md-button></md-table-cell>
+                <md-table-cell md-label="Ações">
+                    <md-button v-on:click="editUser(item.id)" class="md-icon-button md-info">
+                        <md-icon>edit</md-icon>
+                    </md-button>
+                    <md-button v-on:click="removeUser(item.id, $event)" class="md-icon-button md-accent">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </md-table-cell>
             </md-table-row>
         </md-table>
     </div>

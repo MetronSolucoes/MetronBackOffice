@@ -1,11 +1,18 @@
 <template>
     <div>
         <md-table v-model="services" :table-header-color="tableHeaderColor">
-            <md-table-row v-on:click="editService(item.id)" slot="md-table-row" slot-scope="{ item }">
+            <md-table-row slot="md-table-row" slot-scope="{ item }">
                 <md-table-cell md-label="Nome">{{ item.name }}</md-table-cell>
                 <md-table-cell md-label="Descrição">{{ item.description }}</md-table-cell>
                 <md-table-cell md-label="Duração (min)">{{ item.duration }}</md-table-cell>
-                <md-table-cell md-label="Remover"><md-button v-on:click="removeUser(item.id, $event)" class="md-icon-button md-accent"><md-icon>close</md-icon></md-button></md-table-cell>
+                <md-table-cell md-label="Ações">
+                    <md-button v-on:click="editService(item.id)" class="md-icon-button md-info">
+                        <md-icon>edit</md-icon>
+                    </md-button>
+                    <md-button v-on:click="removeService(item.id, $event)" class="md-icon-button md-accent">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </md-table-cell>
             </md-table-row>
         </md-table>
     </div>
@@ -46,7 +53,7 @@
 			editService(id) {
 				this.$router.push({ name: 'Atualizar Serviço', params: { id: id }})
 			},
-			removeUser(id, event) {
+			removeService(id, event) {
 				event.stopPropagation();
 
 				this.$swal({
