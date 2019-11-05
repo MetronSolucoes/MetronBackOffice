@@ -9,7 +9,6 @@ export function getServices() {
 		})
 		.catch(function (error) {
 			// handle error
-			console.log(error);
 		})
 		.finally(function () {
 			// always executed
@@ -20,7 +19,6 @@ export function getServiceById(id) {
 	return axios.get('/services/' + id)
 		.then(function (response) {
 			// handle success
-			console.log(response);
 			return response;
 		})
 		.catch(function (error) {
@@ -41,7 +39,7 @@ export function createService(data) {
 		})
 		.catch(function (error) {
 			// handle error
-			console.log(error);
+			return Promise.reject(error.response.data);
 		})
 		.finally(function () {
 			// always executed
@@ -52,12 +50,11 @@ export function updateService(data) {
 	return axios.put('/services/' + data.id, data)
 		.then(function (response) {
 			// handle success
-			console.log(response);
 			return response;
 		})
 		.catch(function (error) {
 			// handle error
-			console.log(error);
+			return Promise.reject(error.response.data);
 		})
 		.finally(function () {
 			// always executed

@@ -33,6 +33,11 @@ import axios from 'axios';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+//V-mask
+import { VueMaskDirective } from 'v-mask';
+
+// Vuelidate
+import Vuelidate from 'vuelidate';
 
 // MaterialDashboard plugin
 import MaterialDashboard from "./material-dashboard";
@@ -54,6 +59,9 @@ Vue.use(GlobalDirectives);
 Vue.use(Notifications);
 Vue.prototype.$moment = moment;
 Vue.use(VueSweetalert2);
+Vue.use(Vuelidate);
+
+Vue.directive('mask', VueMaskDirective);
 
 
 axios.defaults.baseURL = 'https://metron-v1.herokuapp.com/api/v1';

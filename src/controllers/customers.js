@@ -40,7 +40,8 @@ export function createCustomer(data) {
 		})
 		.catch(function (error) {
 			// handle error
-			console.log(error);
+
+			return Promise.reject(error.response.data);
 		})
 		.finally(function () {
 			// always executed
@@ -55,7 +56,7 @@ export function updateCustomer(user) {
 		})
 		.catch(function (error) {
 			// handle error
-			console.log(error);
+			return Promise.reject(error.response.data);
 		})
 		.finally(function () {
 			// always executed
