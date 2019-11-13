@@ -23,8 +23,8 @@ const routes = [
 				component: Dashboard
 			},
 			{
-				path: "user",
-				name: "User Profile",
+				path: "store",
+				name: "Empresa",
 				component: UserProfile
 			},
 			{

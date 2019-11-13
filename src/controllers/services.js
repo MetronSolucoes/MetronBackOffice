@@ -4,7 +4,6 @@ export function getServices() {
 	return axios.get('/services')
 		.then(function (response) {
 			// handle success
-			console.log(response);
 			return response.data;
 		})
 		.catch(function (error) {
@@ -34,7 +33,6 @@ export function createService(data) {
 	return axios.post('/services', data)
 		.then(function (response) {
 			// handle success
-			console.log(response);
 			return response;
 		})
 		.catch(function (error) {
@@ -65,7 +63,6 @@ export function deleteService(id) {
 	return axios.delete('/services/' + id)
 		.then(function (response) {
 			// handle success
-			console.log(response);
 			return response;
 		})
 		.catch(function (error) {

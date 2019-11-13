@@ -20,9 +20,9 @@
                 <md-icon>work</md-icon>
                 <p>Serviços</p>
             </sidebar-link>
-            <sidebar-link to="/user">
-                <md-icon>person</md-icon>
-                <p>User Profile</p>
+            <sidebar-link to="/store">
+                <md-icon>store</md-icon>
+                <p>Empresa</p>
             </sidebar-link>
         </side-bar>
 

@@ -3,9 +3,9 @@
         <md-table v-model="customers" :table-header-color="tableHeaderColor">
             <md-table-row slot="md-table-row" slot-scope="{ item }">
                 <md-table-cell md-label="Nome">{{ item.name + ' ' + item.last_name}}</md-table-cell>
-                <md-table-cell md-label="Contato">{{ item.phone }}</md-table-cell>
+                <md-table-cell md-label="Contato">{{ item.phone|formatPhoneNumber }}</md-table-cell>
                 <md-table-cell md-label="Email">{{ item.email }}</md-table-cell>
-                <md-table-cell md-label="CPF">{{ item.cpf }}</md-table-cell>
+                <md-table-cell md-label="CPF">{{ item.cpf|formatCpf }}</md-table-cell>
                 <md-table-cell md-label="Ações">
                     <md-button v-on:click="editUser(item.id)" class="md-icon-button md-info">
                         <md-icon>edit</md-icon>
@@ -48,6 +48,28 @@
 				if (!value) return '';
 				value = value.toString();
 				return value.charAt(0).toUpperCase() + value.slice(1)
+			},
+            formatPhoneNumber: function(phoneNumberString) {
+                let cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+                let match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
+                if (match) {
+                    return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+                }
+				let match2 = cleaned.match(/^(\d{2})(\d{4})(\d{4})$/);
+				if (match2) {
+					return '(' + match2[1] + ') ' + match2[2] + '-' + match2[3]
+				}
+
+                return phoneNumberString;
+            },
+			formatCpf: function(cpf) {
+				let cleaned = ('' + cpf).replace(/\D/g, '');
+				let match = cleaned.match(/^(\d{3})(\d{3})(\d{3})(\d{2})$/);
+				if (match) {
+					return match[1] + '.' + match[2] + '.' + match[3] + '-' + match[4]
+				}
+
+				return cpf;
 			}
 		},
         methods: {
