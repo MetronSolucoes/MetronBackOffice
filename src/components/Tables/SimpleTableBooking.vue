@@ -1,17 +1,15 @@
 <template>
     <div>
-        <md-table v-model="customers" >
+        <md-table v-model="bookings" >
             <md-table-row slot="md-table-row" slot-scope="{ item }">
-                <md-table-cell md-label="Nome">{{ item.name + ' ' + item.last_name}}</md-table-cell>
-                <md-table-cell md-label="Contato">{{ item.phone|formatPhoneNumber }}</md-table-cell>
-                <md-table-cell md-label="Email">{{ item.email }}</md-table-cell>
-                <md-table-cell md-label="CPF">{{ item.cpf|formatCpf }}</md-table-cell>
-                <md-table-cell md-label="Ações">
-                    <md-button v-on:click="editUser(item.id)" class="md-icon-button md-info">
-                        <md-icon>edit</md-icon>
-                    </md-button>
-                    <md-button v-on:click="removeUser(item.id, $event)" class="md-icon-button md-accent">
-                        <md-icon>close</md-icon>
+                <md-table-cell md-label="Nome">{{ item.customer_name + ' ' + item.customer_last_name}}</md-table-cell>
+                <md-table-cell md-label="Serviço">{{ item.service_name }}</md-table-cell>
+                <md-table-cell md-label="Status">{{ item.scheduling_scheduling_status_name }}</md-table-cell>
+                <md-table-cell md-label="Início">{{ item.scheduling_start|toDatetime }}</md-table-cell>
+                <md-table-cell md-label="Término">{{ item.scheduling_finish|toDatetime }}</md-table-cell>
+                <md-table-cell md-label="Cancelar">
+                    <md-button v-on:click="cancelBookings(item.id, $event)" class="md-icon-button md-accent">
+                        <md-icon>block</md-icon>
                     </md-button>
                 </md-table-cell>
             </md-table-row>
@@ -31,12 +29,12 @@
 <script>
 	import moment from 'moment';
 	import {
-		getCustomers,
-		deleteCustomer
-    } from '@/controllers/customers';
+		getBookings,
+		cancelBooking
+    } from '@/controllers/bookings';
 
 	export default {
-		name: "simple-table-customer",
+		name: "simple-table-booking",
 //		props: {
 //			tableHeaderColor: {
 //				type: String,
@@ -52,7 +50,7 @@
         props: ['bus', 'q'],
 		filters: {
 			toDatetime: function (date) {
-				return moment(Number(date)).format('HH:mm');
+				return moment(date).utc(false).format('DD/MM/YYYY HH:mm');
 			},
 			capitalize: function (value) {
 				if (!value) return '';
@@ -83,50 +81,47 @@
 			}
 		},
         methods: {
-			editUser(id) {
-				this.$router.push({ name: 'Atualizar Cliente', params: { id: id }})
-            },
-			removeUser(id, event) {
+			cancelBookings(id, event) {
 				event.stopPropagation();
 
 				this.$swal({
-					title: 'Deletar usuário?',
+					title: 'Cancelar agendamento?',
 					text: "Esta operação é irreverssível",
 					type: 'warning',
 					showCancelButton: true,
 					confirmButtonColor: '#3085d6',
 					cancelButtonColor: '#d33',
-					confirmButtonText: 'Sim, deletar!',
-					cancelButtonText: 'Cancelar'
+					confirmButtonText: 'Sim, cancelar!',
+					cancelButtonText: 'Fechar'
 				}).then((result) => {
 					if (result.value) {
-						deleteCustomer(id)
+						cancelBooking(id)
 							.then((res) => {
-								if (res && res.status === 204) {
-									this.loadCustomers();
+								if (res && res.status === 200) {
+									this.loadBookings();
 								}
 							})
 					}
 				})
             },
-            loadCustomers() {
-				getCustomers((this.q) ? {"q[name_cont]": this.q} : null)
+			loadBookings() {
+				getBookings((this.q) ? {"q[customer_name_cont]": this.q} : null)
 					.then((data) => {
-						this.customers = data;
+						this.bookings = data;
 					});
             }
         },
 		created: function() {
-			this.bus.$on('filterCustomer', this.loadCustomers);
+			this.bus.$on('filterCustomer', this.loadBookings);
 		},
 		data() {
 			return {
 				selected: [],
-				customers: []
+				bookings: []
 			};
 		},
 		mounted () {
-			this.loadCustomers();
+			this.loadBookings();
 		}
 	};
 </script>

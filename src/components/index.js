@@ -9,6 +9,8 @@ import OrderedTable from "./Tables/OrderedTable.vue";
 import SimpleTable from "./Tables/SimpleTable.vue";
 import SimpleTableCustomer from "./Tables/SimpleTableCustomer.vue";
 import SimpleTableService from "./Tables/SimpleTableService.vue";
+import SimpleTableBooking from "./Tables/SimpleTableBooking.vue";
+
 
 export {
 	ChartCard,
@@ -18,6 +20,7 @@ export {
 	OrderedTable,
 	SimpleTable,
 	SimpleTableCustomer,
-	SimpleTableService
+	SimpleTableService,
+	SimpleTableBooking
 
 };

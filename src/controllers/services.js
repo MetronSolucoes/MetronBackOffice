@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export function getServices() {
-	return axios.get('/services')
+export function getServices(params) {
+	return axios.get('/services', (params) ? {params: params} : '')
 		.then(function (response) {
 			// handle success
 			return response.data;

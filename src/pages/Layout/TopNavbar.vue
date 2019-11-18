@@ -18,8 +18,8 @@
                 <div class="md-collapse">
                     <md-list>
 
-                        <md-list-item href="#/user">
-                            <i class="material-icons">person</i>
+                        <md-list-item href="#/store">
+                            <i class="material-icons">store</i>
                             <p class="hidden-lg hidden-md">Profile</p>
                         </md-list-item>
                     </md-list>

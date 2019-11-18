@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-export function getCustomers() {
-	return axios.get('/customers')
+export function getCustomers(params) {
+
+	return axios.get('/customers', (params) ? {params: params} : '')
 		.then(function (response) {
 			// handle success
 			if (response) {

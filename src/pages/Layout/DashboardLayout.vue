@@ -8,10 +8,10 @@
                 <md-icon>content_paste</md-icon>
                 <p>Agendamentos</p>
             </sidebar-link>
-            <sidebar-link to="/booking-available">
-                <md-icon>dashboard</md-icon>
-                <p>Horários Disponíveis</p>
-            </sidebar-link>
+            <!--<sidebar-link to="/booking-available">-->
+                <!--<md-icon>dashboard</md-icon>-->
+                <!--<p>Horários Disponíveis</p>-->
+            <!--</sidebar-link>-->
             <sidebar-link to="/customers">
                 <md-icon>supervisor_account</md-icon>
                 <p>Clientes</p>

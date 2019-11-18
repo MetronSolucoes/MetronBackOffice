@@ -49,6 +49,9 @@
         bottom: -20px;
         color: red;
     }
+    .md-field.md-theme-default:before {
+        background-color: #2196f3 !important;
+    }
 </style>
 
 <script>

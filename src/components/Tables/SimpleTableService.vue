@@ -1,6 +1,6 @@
 <template>
     <div>
-        <md-table v-model="services" :table-header-color="tableHeaderColor">
+        <md-table v-model="services">
             <md-table-row slot="md-table-row" slot-scope="{ item }">
                 <md-table-cell md-label="Nome">{{ item.name }}</md-table-cell>
                 <md-table-cell md-label="Descrição">{{ item.description }}</md-table-cell>
@@ -22,6 +22,9 @@
     .md-button.md-theme-default.md-accent {
         background: #ff5252 !important;
     }
+    .md-field.md-theme-default:before {
+        background-color: #2196f3 !important;
+    }
 </style>
 
 <script>
@@ -33,12 +36,13 @@
 
 	export default {
 		name: "simple-table-service",
-		props: {
-			tableHeaderColor: {
-				type: String,
-				default: ""
-			}
-		},
+//		props: {
+//			tableHeaderColor: {
+//				type: String,
+//				default: ""
+//			}
+//		},
+		props: ['bus', 'q'],
 		filters: {
 			toDatetime: function (date) {
 				return moment(Number(date)).format('HH:mm');
@@ -77,11 +81,14 @@
 				})
 			},
 			loadServices() {
-				getServices()
+				getServices((this.q) ? {"q[name_cont]": this.q} : null)
 					.then((data) => {
 						this.services = data;
 					});
 			}
+		},
+		created: function() {
+			this.bus.$on('filterService', this.loadServices);
 		},
 		data() {
 			return {

@@ -17,6 +17,7 @@
     "moment": "^2.24.0",
     "v-mask": "^2.0.2",
     "vue": "^2.6.10",
+    "vue-bootstrap-datetimepicker": "^5.0.1",
     "vue-clickaway": "^2.2.2",
     "vue-github-buttons": "^3.1.0",
     "vue-material": "^1.0.0-beta-11",

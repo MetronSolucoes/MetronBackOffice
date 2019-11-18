@@ -226,7 +226,7 @@
 
     [data-background-color="green"],
     .md-tabs.md-success .md-tabs-navigation{
-        background: linear-gradient(60deg, $green-400, $green-600);
+        background: linear-gradient(60deg, #3491FE, #3491FE);
         @include shadow-big-color($brand-success);
     }
 

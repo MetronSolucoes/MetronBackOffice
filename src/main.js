@@ -69,7 +69,6 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 axios.defaults.headers.post['Accept'] = '*/*';
 axios.defaults.withCredentials = false;
 
-
 /* eslint-disable no-new */
 new Vue({
 	el: "#app",

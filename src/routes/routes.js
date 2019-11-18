@@ -5,6 +5,7 @@ import UserProfile from "@/pages/UserProfile.vue";
 import TableList from "@/pages/TableList.vue";
 import Customers from "@/pages/Customers.vue";
 import NewCustomer from "@/pages/Customer/newCustomer.vue";
+import NewBooking from "@/pages/Booking/newBooking.vue";
 import NewService from "@/pages/Service/newService.vue";
 import Services from "@/pages/Services.vue";
 import Typography from "@/pages/Typography.vue";
@@ -23,15 +24,20 @@ const routes = [
 				component: Dashboard
 			},
 			{
+				path: "booking/new",
+				name: "Novo Agendamento",
+				component: NewBooking
+			},
+			{
 				path: "store",
 				name: "Empresa",
 				component: UserProfile
 			},
-			{
-				path: "booking-available",
-				name: "Horários Disponíveis",
-				component: TableList
-			},
+			// {
+			// 	path: "booking-available",
+			// 	name: "Horários Disponíveis",
+			// 	component: TableList
+			// },
 			{
 				path: "customers",
 				name: "Clientes",

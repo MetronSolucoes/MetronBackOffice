@@ -1,7 +1,15 @@
 <template>
     <div class="content">
-        <div class="d-flex p-3">
-            <md-button to="/customers/new" class="ml-auto md-raised md-info">Novo +</md-button>
+        <div class="md-layout p-3">
+            <div class="md-layout-item md-medium-size-66 md-xsmall-size-66 md-size-66">
+                <md-field>
+                    <label>Filtrar (nome)</label>
+                    <md-input v-on:keyup.enter="filterVal" v-model="filter" type="text"></md-input>
+                </md-field>
+            </div>
+            <div class="md-layout-item md-medium-size-33 md-xsmall-size-33 md-size-33 text-right">
+                <md-button to="/customers/new" class="ml-auto md-raised md-info">Novo +</md-button>
+            </div>
         </div>
         <div class="md-layout">
             <div
@@ -13,7 +21,7 @@
                         <p class="category">Metron</p>
                     </md-card-header>
                     <md-card-content>
-                        <simple-table-customer table-header-color="green"></simple-table-customer>
+                        <simple-table-customer :bus="bus" :q="filter" table-header-color="green"></simple-table-customer>
                     </md-card-content>
                 </md-card>
             </div>
@@ -24,10 +32,23 @@
 
 <script>
 	import {SimpleTableCustomer} from "@/components";
+	import Vue from "vue";
+
 
 	export default {
 		components: {
 			SimpleTableCustomer
+		},
+        data() {
+			return {
+				bus: new Vue(),
+				filter: ''
+            }
+        },
+		methods: {
+			filterVal: function() {
+				this.bus.$emit('filterCustomer', true);
+			}
 		}
 	};
 </script>
